@@ -39,7 +39,7 @@
     "react-dom": "^18.2.0",
     "react-intersection-observer": "^9.4.3",
     "react-redux": "^9.1.0",
-    "react-router-dom": "^6.10.0",
+    "react-router-dom": "^6.30.2",
     "redux-thunk": "^3.1.0",
     "typescript": "^5.3.3",
     "uuid": "^9.0.0",
@@ -54,10 +54,13 @@
     "@babel/preset-env": "^7.23.6",
     "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.23.3",
+    "@storybook/addon-a11y": "^10.1.10",
+    "@storybook/addon-docs": "^10.1.10",
     "@storybook/addon-essentials": "^7.6.10",
     "@storybook/addon-interactions": "^7.6.10",
     "@storybook/addon-links": "^7.6.10",
     "@storybook/addon-onboarding": "^1.0.11",
+    "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
     "@storybook/blocks": "^7.6.10",
     "@storybook/react": "^7.6.10",
     "@storybook/react-webpack5": "^7.6.10",
@@ -104,10 +107,7 @@
     "ts-jest": "^29.1.1",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.2",
-    "url-loader": "^4.1.1",
-    "@storybook/addon-webpack5-compiler-swc": "^4.0.2",
-    "@storybook/addon-a11y": "^10.1.10",
-    "@storybook/addon-docs": "^10.1.10"
+    "url-loader": "^4.1.1"
   },
   "eslintConfig": {
     "extends": [
