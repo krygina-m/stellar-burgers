@@ -2,7 +2,7 @@ import { FC, useEffect } from 'react';
 
 import { useDispatch, useSelector } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
-import { selectIsIngredientsLoading } from '../../services/selectors/ingredients';
+import { selectIsIngredientsLoading } from '../../services/slices/ingredientsSlice';
 
 import styles from './constructor-page.module.css';
 

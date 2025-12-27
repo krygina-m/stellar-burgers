@@ -1,15 +1,14 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
 import {
-  getUserApi,
+  TRegisterData,
   loginUserApi,
-  logoutApi,
-  registerUserApi,
-  updateUserApi,
   TLoginData,
-  TRegisterData
-} from '@api';
-import { TUser } from '@utils-types';
+  getUserApi,
+  logoutApi,
+  updateUserApi,
+  registerUserApi
+} from '../../utils/burger-api';
+import { TOrder, TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export type TUserState = {
@@ -26,6 +25,7 @@ const initialState: TUserState = {
   error: null
 };
 
+// Асинхронные thunk-действия (остаются без изменений)
 export const registerUser = createAsyncThunk<
   TUser,
   TRegisterData,
@@ -121,10 +121,36 @@ export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   }
 );
 
-export const userSlice = createSlice({
+// Слайс с встроенными селекторами
+const userSlice = createSlice({
   name: 'user',
   initialState,
   reducers: {},
+  selectors: {
+    // Полное состояние слайса
+    selectUserState: (state) => state,
+
+    // Пользователь
+    selectUser: (state) => state.user,
+
+    // Статус проверки авторизации
+    selectIsAuthChecked: (state) => state.isAuthChecked,
+
+    // Проверка, авторизован ли пользователь
+    selectIsAuthenticated: (state) => Boolean(state.user),
+
+    // Ошибка
+    selectUserError: (state) => state.error,
+
+    // Статус загрузки
+    selectIsUserLoading: (state) => state.isLoading,
+
+    // Дополнительно: получение имени пользователя (если есть)
+    selectUserName: (state) => state.user?.name || null,
+
+    // Дополнительно: проверка, есть ли пользователь и загружен ли он
+    selectHasUser: (state) => !!state.user && !state.isLoading
+  },
   extraReducers: (builder) => {
     builder
       .addCase(registerUser.pending, (state) => {
@@ -200,4 +226,17 @@ export const userSlice = createSlice({
   }
 });
 
+// Экспорт редуктора
 export const userReducer = userSlice.reducer;
+
+// Экспорт селекторов (автоматически сгенерированы из поля `selectors`)
+export const {
+  selectUserState,
+  selectUser,
+  selectIsAuthChecked,
+  selectIsAuthenticated,
+  selectUserError,
+  selectIsUserLoading,
+  selectUserName,
+  selectHasUser
+} = userSlice.selectors;

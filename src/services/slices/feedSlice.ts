@@ -1,6 +1,9 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import { getFeedsApi } from '@api';
+import {
+  createAsyncThunk,
+  createSlice,
+  createSelector
+} from '@reduxjs/toolkit';
+import { getFeedsApi } from '../../utils/burger-api';
 import { TOrder, TOrdersData } from '@utils-types';
 
 export type TFeedState = {
@@ -19,6 +22,7 @@ const initialState: TFeedState = {
   error: null
 };
 
+// Асинхронный thunk для загрузки ленты заказов
 export const fetchFeed = createAsyncThunk<
   TOrdersData,
   void,
@@ -35,10 +39,37 @@ export const fetchFeed = createAsyncThunk<
   }
 });
 
+// Слайс с встроенными селекторами
 const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {},
+  selectors: {
+    // Базовый селектор состояния слайса
+    selectFeedState: (state) => state,
+
+    // Список заказов
+    selectFeedOrders: (state) => state.orders,
+
+    // Статус загрузки
+    selectFeedIsLoading: (state) => state.isLoading,
+
+    // Ошибка
+    selectFeedError: (state) => state.error,
+
+    // Общие итоги (объединённые поля)
+    selectFeedTotals: (state) => ({
+      total: state.total,
+      totalToday: state.totalToday
+    }),
+
+    // Дополнительно: количество заказов (пример простого вычисления)
+    selectFeedCount: (state) => state.orders.length,
+
+    // Дополнительно: фильтры по статусу (пример сложной логики)
+    selectFeedOrdersByStatus: (state, status: 'done' | 'pending') =>
+      state.orders.filter((order) => order.status === status)
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchFeed.pending, (state) => {
@@ -58,4 +89,16 @@ const feedSlice = createSlice({
   }
 });
 
+// Экспорт редуктора
 export const feedReducer = feedSlice.reducer;
+
+// Экспорт селекторов (автоматически сгенерированы из поля `selectors`)
+export const {
+  selectFeedState,
+  selectFeedOrders,
+  selectFeedIsLoading,
+  selectFeedError,
+  selectFeedTotals,
+  selectFeedCount,
+  selectFeedOrdersByStatus
+} = feedSlice.selectors;

@@ -6,7 +6,7 @@ import { loginUser } from '../../services/slices/userSlice';
 import {
   selectUserError,
   selectIsUserLoading
-} from '../../services/selectors/user';
+} from '../../services/slices/userSlice';
 import { LoginUI } from '@ui-pages';
 
 export const Login: FC = () => {

@@ -7,7 +7,7 @@ import {
   selectUserOrders,
   selectUserOrdersIsLoading,
   selectUserOrdersError
-} from '../../services/selectors/userOrders';
+} from '../../services/slices/userOrdersSlice';
 import { fetchUserOrders } from '../../services/slices/userOrdersSlice';
 
 export const ProfileOrders: FC = () => {

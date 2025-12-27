@@ -4,7 +4,7 @@ import { useSelector } from '../../services/store';
 import {
   selectIsAuthenticated,
   selectIsAuthChecked
-} from '../../services/selectors/user';
+} from '../../services/slices/userSlice';
 import { Preloader } from '@ui';
 
 type TProtectedRouteProps = {

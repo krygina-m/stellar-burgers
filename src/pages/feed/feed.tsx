@@ -8,7 +8,7 @@ import {
   selectFeedOrders,
   selectFeedIsLoading,
   selectFeedError
-} from '../../services/selectors/feed';
+} from '../../services/slices/feedSlice';
 
 export const Feed: FC = () => {
   const dispatch = useDispatch();

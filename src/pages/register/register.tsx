@@ -6,7 +6,7 @@ import { registerUser } from '../../services/slices/userSlice';
 import {
   selectUserError,
   selectIsUserLoading
-} from '../../services/selectors/user';
+} from '../../services/slices/userSlice';
 import { RegisterUI } from '@ui-pages';
 
 export const Register: FC = () => {

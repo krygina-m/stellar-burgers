@@ -1,5 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
+import { createSlice, PayloadAction, createSelector } from '@reduxjs/toolkit';
 import { TConstructorIngredient, TIngredient } from '@utils-types';
 
 export type TConstructorState = {
@@ -18,6 +17,7 @@ const ensureIngredientsArray = (state: TConstructorState) => {
   }
 };
 
+// Слайс с встроенными селекторами
 const constructorSlice = createSlice({
   name: 'constructor',
   initialState,
@@ -26,13 +26,10 @@ const constructorSlice = createSlice({
       ensureIngredientsArray(state);
       const ingredient = action.payload;
       if (ingredient.type === 'bun') {
-        // Для булок сохраняем только базовые свойства TIngredient
         const { id, ...bunData } = ingredient;
         state.bun = bunData as TIngredient;
         return;
       }
-
-      // Для остальных ингредиентов используем уже готовый TConstructorIngredient с id
       state.ingredients.push(ingredient);
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
@@ -44,9 +41,7 @@ const constructorSlice = createSlice({
     moveIngredientUp: (state, action: PayloadAction<number>) => {
       ensureIngredientsArray(state);
       const index = action.payload;
-      if (index <= 0 || index >= state.ingredients.length) {
-        return;
-      }
+      if (index <= 0 || index >= state.ingredients.length) return;
       const ingredients = [...state.ingredients];
       const temp = ingredients[index - 1];
       ingredients[index - 1] = ingredients[index];
@@ -56,9 +51,7 @@ const constructorSlice = createSlice({
     moveIngredientDown: (state, action: PayloadAction<number>) => {
       ensureIngredientsArray(state);
       const index = action.payload;
-      if (index < 0 || index >= state.ingredients.length - 1) {
-        return;
-      }
+      if (index < 0 || index >= state.ingredients.length - 1) return;
       const ingredients = [...state.ingredients];
       const temp = ingredients[index + 1];
       ingredients[index + 1] = ingredients[index];
@@ -69,9 +62,30 @@ const constructorSlice = createSlice({
       state.bun = null;
       state.ingredients = [];
     }
+  },
+  selectors: {
+    // Базовый селектор состояния слайса
+    selectConstructorState: (state) => state,
+
+    // Булка
+    selectConstructorBun: (state) => state.bun,
+
+    // Список ингредиентов
+    selectConstructorIngredients: (state) => state.ingredients,
+
+    // Общее количество элементов (булка + ингредиенты)
+    selectTotalItemsCount: (state) =>
+      (state.bun ? 1 : 0) + state.ingredients.length,
+
+    // Проверка наличия булки
+    selectHasBun: (state) => !!state.bun,
+
+    // Проверка, пуст ли конструктор
+    selectIsEmpty: (state) => !state.bun && state.ingredients.length === 0
   }
 });
 
+// Экспорт действий и редуктора
 export const {
   addIngredient,
   removeIngredient,
@@ -81,3 +95,36 @@ export const {
 } = constructorSlice.actions;
 
 export const constructorReducer = constructorSlice.reducer;
+
+// Экспорт встроенных селекторов
+export const {
+  selectConstructorState,
+  selectConstructorBun,
+  selectConstructorIngredients,
+  selectTotalItemsCount,
+  selectHasBun,
+  selectIsEmpty
+} = constructorSlice.selectors;
+
+// Сложные селекторы (используем createSelector для оптимизации)
+export const selectConstructorCounters = createSelector(
+  [selectConstructorBun, selectConstructorIngredients],
+  (bun, ingredients) => {
+    const counters: { [key: string]: number } = {};
+
+    // Учёт булки (всегда 2 экземпляра)
+    if (bun) {
+      counters[bun._id] = 2;
+    }
+
+    // Учёт остальных ингредиентов
+    ingredients.forEach((ingredient) => {
+      if (!counters[ingredient._id]) {
+        counters[ingredient._id] = 0;
+      }
+      counters[ingredient._id] += 1;
+    });
+
+    return counters;
+  }
+);

@@ -1,6 +1,9 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-
-import { getIngredientsApi } from '@api';
+import {
+  createAsyncThunk,
+  createSlice,
+  createSelector
+} from '@reduxjs/toolkit';
+import { getIngredientsApi } from '../../utils/burger-api';
 import { TIngredient } from '@utils-types';
 
 export type TIngredientsState = {
@@ -34,6 +37,28 @@ export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {},
+  selectors: {
+    // Базовый селектор состояния слайса
+    selectIngredientsState: (state) => state,
+
+    // Извлечение списка ингредиентов
+    selectIngredients: (state) => state.items,
+
+    // Статус загрузки
+    selectIsIngredientsLoading: (state) => state.isLoading,
+
+    // Ошибка
+    selectIngredientsError: (state) => state.error,
+
+    // Фильтрация по типу: булки
+    selectBuns: (state) => state.items.filter((item) => item.type === 'bun'),
+
+    // Фильтрация по типу: основные ингредиенты
+    selectMains: (state) => state.items.filter((item) => item.type === 'main'),
+
+    // Фильтрация по типу: соусы
+    selectSauces: (state) => state.items.filter((item) => item.type === 'sauce')
+  },
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
@@ -52,3 +77,14 @@ export const ingredientsSlice = createSlice({
 });
 
 export const ingredientsReducer = ingredientsSlice.reducer;
+
+// Экспорт селекторов
+export const {
+  selectIngredientsState,
+  selectIngredients,
+  selectIsIngredientsLoading,
+  selectIngredientsError,
+  selectBuns,
+  selectMains,
+  selectSauces
+} = ingredientsSlice.selectors;
