@@ -44,9 +44,7 @@ export const ingredientsSlice = createSlice({
     selectIsIngredientsLoading: (state) => state.isLoading,
 
     // Ошибка
-    selectIngredientsError: (state) => state.error,
-
-
+    selectIngredientsError: (state) => state.error
   },
   extraReducers: (builder) => {
     builder

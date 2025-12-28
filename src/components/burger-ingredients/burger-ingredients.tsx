@@ -7,9 +7,7 @@ import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
-  const { items, isLoading, error } = useSelector(
-    (state) => state.ingredients
-  );
+  const { items, isLoading, error } = useSelector((state) => state.ingredients);
 
   useEffect(() => {
     if (!isLoading && !error && items.length === 0) {
