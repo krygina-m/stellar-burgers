@@ -91,3 +91,24 @@ export const {
   selectUserOrdersCount,
   selectHasOrders
 } = userOrdersSlice.selectors;
+
+// Сложный селектор (зависит от другого слайса)
+export const selectAllOrders = createSelector(
+  // Зависимости: селекторы из других слайсов
+  [
+    (state: RootState) => selectFeedOrders(state), // из feedSlice
+    selectUserOrders // из текущего слайса (уже мемоизирован)
+  ],
+  (feedOrders, userOrders) => {
+    const all = [...feedOrders];
+    const existingNumbers = new Set(feedOrders.map((order) => order.number));
+
+    userOrders.forEach((order) => {
+      if (!existingNumbers.has(order.number)) {
+        all.push(order);
+      }
+    });
+
+    return all;
+  }
+);
