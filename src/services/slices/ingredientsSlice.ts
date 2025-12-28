@@ -46,14 +46,7 @@ export const ingredientsSlice = createSlice({
     // Ошибка
     selectIngredientsError: (state) => state.error,
 
-    // Фильтрация по типу: булки
-    selectBuns: (state) => state.items.filter((item) => item.type === 'bun'),
 
-    // Фильтрация по типу: основные ингредиенты
-    selectMains: (state) => state.items.filter((item) => item.type === 'main'),
-
-    // Фильтрация по типу: соусы
-    selectSauces: (state) => state.items.filter((item) => item.type === 'sauce')
   },
   extraReducers: (builder) => {
     builder
@@ -79,8 +72,5 @@ export const {
   selectIngredientsState,
   selectIngredients,
   selectIsIngredientsLoading,
-  selectIngredientsError,
-  selectBuns,
-  selectMains,
-  selectSauces
+  selectIngredientsError
 } = ingredientsSlice.selectors;
