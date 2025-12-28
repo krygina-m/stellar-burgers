@@ -1,8 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  createSelector
-} from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { getFeedsApi } from '../../utils/burger-api';
 import { TOrder, TOrdersData } from '@utils-types';
 
@@ -39,7 +35,6 @@ export const fetchFeed = createAsyncThunk<
   }
 });
 
-// Слайс с встроенными селекторами
 const feedSlice = createSlice({
   name: 'feed',
   initialState,
@@ -63,10 +58,10 @@ const feedSlice = createSlice({
       totalToday: state.totalToday
     }),
 
-    // Дополнительно: количество заказов (пример простого вычисления)
+    // Дополнительно: количество заказов
     selectFeedCount: (state) => state.orders.length,
 
-    // Дополнительно: фильтры по статусу (пример сложной логики)
+    // Дополнительно: фильтры по статусу
     selectFeedOrdersByStatus: (state, status: 'done' | 'pending') =>
       state.orders.filter((order) => order.status === status)
   },

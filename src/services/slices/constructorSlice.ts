@@ -11,53 +11,46 @@ const initialState: TConstructorState = {
   ingredients: []
 };
 
-const ensureIngredientsArray = (state: TConstructorState) => {
-  if (!state.ingredients) {
-    state.ingredients = [];
-  }
-};
-
-// Слайс с встроенными селекторами
 const constructorSlice = createSlice({
-  name: 'constructor',
+  name: 'burgerConstructor',
   initialState,
   reducers: {
     addIngredient: (state, action: PayloadAction<TConstructorIngredient>) => {
-      ensureIngredientsArray(state);
       const ingredient = action.payload;
       if (ingredient.type === 'bun') {
         const { id, ...bunData } = ingredient;
         state.bun = bunData as TIngredient;
-        return;
+      } else {
+        state.ingredients.push(ingredient);
       }
-      state.ingredients.push(ingredient);
     },
     removeIngredient: (state, action: PayloadAction<string>) => {
-      ensureIngredientsArray(state);
       state.ingredients = state.ingredients.filter(
         (ingredient) => ingredient.id !== action.payload
       );
     },
     moveIngredientUp: (state, action: PayloadAction<number>) => {
-      ensureIngredientsArray(state);
       const index = action.payload;
+      // Проверяем, можно ли сдвинуть вверх (не первый элемент и индекс в пределах массива)
       if (index <= 0 || index >= state.ingredients.length) return;
-      const ingredients = [...state.ingredients];
-      const temp = ingredients[index - 1];
-      ingredients[index - 1] = ingredients[index];
-      ingredients[index] = temp;
-      state.ingredients = ingredients;
+
+      [state.ingredients[index - 1], state.ingredients[index]] = [
+        state.ingredients[index],
+        state.ingredients[index - 1]
+      ];
     },
+
     moveIngredientDown: (state, action: PayloadAction<number>) => {
-      ensureIngredientsArray(state);
       const index = action.payload;
+      // Проверяем, можно ли сдвинуть вниз (не последний элемент и корректный индекс)
       if (index < 0 || index >= state.ingredients.length - 1) return;
-      const ingredients = [...state.ingredients];
-      const temp = ingredients[index + 1];
-      ingredients[index + 1] = ingredients[index];
-      ingredients[index] = temp;
-      state.ingredients = ingredients;
+
+      [state.ingredients[index], state.ingredients[index + 1]] = [
+        state.ingredients[index + 1],
+        state.ingredients[index]
+      ];
     },
+
     clearConstructor: (state) => {
       state.bun = null;
       state.ingredients = [];

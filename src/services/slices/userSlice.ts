@@ -8,7 +8,7 @@ import {
   updateUserApi,
   registerUserApi
 } from '../../utils/burger-api';
-import { TOrder, TUser } from '@utils-types';
+import { TUser } from '@utils-types';
 import { deleteCookie, setCookie } from '../../utils/cookie';
 
 export type TUserState = {

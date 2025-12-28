@@ -24,7 +24,7 @@ import { useDispatch, useSelector } from '../../services/store';
 import {
   selectIsAuthenticated,
   selectIsAuthChecked
-} from '../../services/selectors/user';
+} from '../../services/slices/userSlice';
 import { getUser } from '../../services/slices/userSlice';
 
 import '../../index.css';

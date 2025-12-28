@@ -5,8 +5,8 @@ import { TOrder } from '@utils-types';
 import { RootState } from '../store';
 
 export type TOrderState = {
-  orderRequest: boolean;
   order: TOrder | null;
+  orderRequest: boolean;
   error: string | null;
 };
 
