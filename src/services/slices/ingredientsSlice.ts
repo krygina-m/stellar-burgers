@@ -33,19 +33,7 @@ export const ingredientsSlice = createSlice({
   name: 'ingredients',
   initialState,
   reducers: {},
-  selectors: {
-    // Базовый селектор состояния слайса
-    selectIngredientsState: (state) => state,
-
-    // Извлечение списка ингредиентов
-    selectIngredients: (state) => state.items,
-
-    // Статус загрузки
-    selectIsIngredientsLoading: (state) => state.isLoading,
-
-    // Ошибка
-    selectIngredientsError: (state) => state.error
-  },
+  selectors: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchIngredients.pending, (state) => {
@@ -64,11 +52,3 @@ export const ingredientsSlice = createSlice({
 });
 
 export const ingredientsReducer = ingredientsSlice.reducer;
-
-// Экспорт селекторов
-export const {
-  selectIngredientsState,
-  selectIngredients,
-  selectIsIngredientsLoading,
-  selectIngredientsError
-} = ingredientsSlice.selectors;

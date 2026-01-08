@@ -3,7 +3,6 @@ import { useNavigate, useLocation } from 'react-router-dom';
 
 import { useDispatch, useSelector } from '../../services/store';
 import { selectIsAuthenticated } from '../../services/slices/userSlice';
-import { selectConstructorIngredients } from '../../services/slices/constructorSlice';
 import { createOrder, clearOrder } from '../../services/slices/orderSlice';
 import { clearConstructor } from '../../services/slices/constructorSlice';
 import { TConstructorIngredient } from '@utils-types';
