@@ -43,9 +43,6 @@ const userOrdersSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    // Полное состояние слайса
-    selectUserOrdersState: (state) => state,
-
     // Список заказов
     selectUserOrders: (state) => state.orders,
 
@@ -53,13 +50,7 @@ const userOrdersSlice = createSlice({
     selectUserOrdersIsLoading: (state) => state.isLoading,
 
     // Ошибка
-    selectUserOrdersError: (state) => state.error,
-
-    // Количество заказов
-    selectUserOrdersCount: (state) => state.orders.length,
-
-    // Проверка, есть ли заказы
-    selectHasOrders: (state) => state.orders.length > 0
+    selectUserOrdersError: (state) => state.error
   },
   extraReducers: (builder) => {
     builder
@@ -84,10 +75,7 @@ export const userOrdersReducer = userOrdersSlice.reducer;
 
 // Экспорт встроенных селекторов
 export const {
-  selectUserOrdersState,
   selectUserOrders,
   selectUserOrdersIsLoading,
-  selectUserOrdersError,
-  selectUserOrdersCount,
-  selectHasOrders
+  selectUserOrdersError
 } = userOrdersSlice.selectors;

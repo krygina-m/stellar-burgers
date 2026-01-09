@@ -40,9 +40,6 @@ const feedSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    // Базовый селектор состояния слайса
-    selectFeedState: (state) => state,
-
     // Список заказов
     selectFeedOrders: (state) => state.orders,
 
@@ -50,20 +47,7 @@ const feedSlice = createSlice({
     selectFeedIsLoading: (state) => state.isLoading,
 
     // Ошибка
-    selectFeedError: (state) => state.error,
-
-    // Общие итоги (объединённые поля)
-    selectFeedTotals: (state) => ({
-      total: state.total,
-      totalToday: state.totalToday
-    }),
-
-    // Дополнительно: количество заказов
-    selectFeedCount: (state) => state.orders.length,
-
-    // Дополнительно: фильтры по статусу
-    selectFeedOrdersByStatus: (state, status: 'done' | 'pending') =>
-      state.orders.filter((order) => order.status === status)
+    selectFeedError: (state) => state.error
   },
   extraReducers: (builder) => {
     builder
@@ -88,12 +72,5 @@ const feedSlice = createSlice({
 export const feedReducer = feedSlice.reducer;
 
 // Экспорт селекторов (автоматически сгенерированы из поля `selectors`)
-export const {
-  selectFeedState,
-  selectFeedOrders,
-  selectFeedIsLoading,
-  selectFeedError,
-  selectFeedTotals,
-  selectFeedCount,
-  selectFeedOrdersByStatus
-} = feedSlice.selectors;
+export const { selectFeedOrders, selectFeedIsLoading, selectFeedError } =
+  feedSlice.selectors;

@@ -127,9 +127,6 @@ const userSlice = createSlice({
   initialState,
   reducers: {},
   selectors: {
-    // Полное состояние слайса
-    selectUserState: (state) => state,
-
     // Пользователь
     selectUser: (state) => state.user,
 
@@ -143,13 +140,7 @@ const userSlice = createSlice({
     selectUserError: (state) => state.error,
 
     // Статус загрузки
-    selectIsUserLoading: (state) => state.isLoading,
-
-    // Дополнительно: получение имени пользователя (если есть)
-    selectUserName: (state) => state.user?.name || null,
-
-    // Дополнительно: проверка, есть ли пользователь и загружен ли он
-    selectHasUser: (state) => !!state.user && !state.isLoading
+    selectIsUserLoading: (state) => state.isLoading
   },
   extraReducers: (builder) => {
     builder
@@ -231,12 +222,9 @@ export const userReducer = userSlice.reducer;
 
 // Экспорт селекторов (автоматически сгенерированы из поля `selectors`)
 export const {
-  selectUserState,
   selectUser,
   selectIsAuthChecked,
   selectIsAuthenticated,
   selectUserError,
-  selectIsUserLoading,
-  selectUserName,
-  selectHasUser
+  selectIsUserLoading
 } = userSlice.selectors;
