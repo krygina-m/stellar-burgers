@@ -21,14 +21,14 @@ export const createOrder = createAsyncThunk<
   void,
   { state: RootState; rejectValue: string }
 >('order/create', async (_, { getState, rejectWithValue }) => {
+  const state = getState();
+  const { bun, ingredients } = state.burgerConstructor;
+
+  if (!bun) {
+    return rejectWithValue('Булка не выбрана');
+  }
+
   try {
-    const state = getState();
-    const { bun, ingredients } = state.burgerConstructor;
-
-    if (!bun) {
-      return rejectWithValue('Булка не выбрана');
-    }
-
     const ingredientIds = [
       bun._id,
       ...ingredients.map((ingredient) => ingredient._id),

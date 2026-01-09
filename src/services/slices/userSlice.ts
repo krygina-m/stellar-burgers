@@ -25,7 +25,6 @@ const initialState: TUserState = {
   error: null
 };
 
-// Асинхронные thunk-действия (остаются без изменений)
 export const registerUser = createAsyncThunk<
   TUser,
   TRegisterData,
