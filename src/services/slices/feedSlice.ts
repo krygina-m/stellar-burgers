@@ -39,16 +39,7 @@ const feedSlice = createSlice({
   name: 'feed',
   initialState,
   reducers: {},
-  selectors: {
-    // Список заказов
-    selectFeedOrders: (state) => state.orders,
-
-    // Статус загрузки
-    selectFeedIsLoading: (state) => state.isLoading,
-
-    // Ошибка
-    selectFeedError: (state) => state.error
-  },
+  selectors: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchFeed.pending, (state) => {
@@ -70,7 +61,3 @@ const feedSlice = createSlice({
 
 // Экспорт редуктора
 export const feedReducer = feedSlice.reducer;
-
-// Экспорт селекторов (автоматически сгенерированы из поля `selectors`)
-export const { selectFeedOrders, selectFeedIsLoading, selectFeedError } =
-  feedSlice.selectors;
