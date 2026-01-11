@@ -1,9 +1,9 @@
 import { FC, useMemo } from 'react';
+import { useParams } from 'react-router-dom';
+import { useSelector } from '../../services/store';
 import { Preloader } from '../ui/preloader';
 import { OrderInfoUI } from '../ui/order-info';
 import { TIngredient } from '@utils-types';
-import { useParams } from 'react-router-dom';
-import { useSelector } from '../../services/store';
 
 export const OrderInfo: FC = () => {
   const { number } = useParams<{ number: string }>();
@@ -12,8 +12,8 @@ export const OrderInfo: FC = () => {
   const orders = useSelector((state) => state.feed.orders);
 
   const orderData = orders.find((order) => order.number.toString() === number);
-  console.log(orderData);
 
+  /* Готовим данные для отображения */
   const orderInfo = useMemo(() => {
     if (!orderData || !ingredients.length) return null;
 
