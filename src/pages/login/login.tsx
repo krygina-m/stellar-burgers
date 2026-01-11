@@ -3,10 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from '../../services/store';
 import { loginUser } from '../../services/slices/userSlice';
-import {
-  selectUserError,
-  selectIsUserLoading
-} from '../../services/slices/userSlice';
+import { selectUserError } from '../../services/slices/userSlice';
 import { LoginUI } from '@ui-pages';
 
 export const Login: FC = () => {
@@ -15,7 +12,6 @@ export const Login: FC = () => {
 
   const dispatch = useDispatch();
   const error = useSelector(selectUserError);
-  const isLoading = useSelector(selectIsUserLoading);
 
   const navigate = useNavigate();
   const location = useLocation() as { state?: { from?: Location } };
@@ -27,9 +23,7 @@ export const Login: FC = () => {
       await dispatch(loginUser({ email, password })).unwrap();
       const from = location.state?.from?.pathname || '/';
       navigate(from, { replace: true });
-    } catch (_) {
-      // Ошибку показываем через selectUserError -> LoginUI
-    }
+    } catch (_) {}
   };
 
   return (

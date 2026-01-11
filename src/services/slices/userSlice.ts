@@ -216,7 +216,6 @@ const userSlice = createSlice({
   }
 });
 
-// Экспорт редуктора
 export const userReducer = userSlice.reducer;
 
 // Экспорт селекторов (автоматически сгенерированы из поля `selectors`)

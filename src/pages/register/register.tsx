@@ -22,15 +22,12 @@ export const Register: FC = () => {
 
   const handleSubmit = async (e: SyntheticEvent) => {
     e.preventDefault();
-
     try {
       await dispatch(
         registerUser({ name: userName, email, password })
       ).unwrap();
       navigate('/', { replace: true });
-    } catch (_) {
-      // Ошибку показываем через selectUserError -> RegisterUI
-    }
+    } catch (_) {}
   };
 
   return (

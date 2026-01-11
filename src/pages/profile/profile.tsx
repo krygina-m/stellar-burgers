@@ -58,9 +58,7 @@ export const Profile: FC = () => {
         ...prevState,
         password: ''
       }));
-    } catch (_) {
-      // Ошибку отдаёт selectUserError -> ProfileUI
-    }
+    } catch (_) {}
   };
 
   const handleCancel = (e: SyntheticEvent) => {

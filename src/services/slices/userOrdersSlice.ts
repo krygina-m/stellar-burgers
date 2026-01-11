@@ -36,16 +36,7 @@ const userOrdersSlice = createSlice({
   name: 'userOrders',
   initialState,
   reducers: {},
-  selectors: {
-    // Список заказов
-    selectUserOrders: (state) => state.orders,
-
-    // Статус загрузки
-    selectUserOrdersIsLoading: (state) => state.isLoading,
-
-    // Ошибка
-    selectUserOrdersError: (state) => state.error
-  },
+  selectors: {},
   extraReducers: (builder) => {
     builder
       .addCase(fetchUserOrders.pending, (state) => {
@@ -66,10 +57,3 @@ const userOrdersSlice = createSlice({
 
 // Экспорт редуктора
 export const userOrdersReducer = userOrdersSlice.reducer;
-
-// Экспорт встроенных селекторов
-export const {
-  selectUserOrders,
-  selectUserOrdersIsLoading,
-  selectUserOrdersError
-} = userOrdersSlice.selectors;

@@ -3,18 +3,13 @@ import { FC, useEffect } from 'react';
 import { ProfileOrdersUI } from '@ui-pages';
 import { Preloader } from '@ui';
 import { useDispatch, useSelector } from '../../services/store';
-import {
-  selectUserOrders,
-  selectUserOrdersIsLoading,
-  selectUserOrdersError
-} from '../../services/slices/userOrdersSlice';
 import { fetchUserOrders } from '../../services/slices/userOrdersSlice';
 
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
-  const orders = useSelector(selectUserOrders);
-  const isLoading = useSelector(selectUserOrdersIsLoading);
-  const error = useSelector(selectUserOrdersError);
+  const orders = useSelector((state) => state.feed.orders);
+  const isLoading = useSelector((state) => state.feed.isLoading);
+  const error = useSelector((state) => state.feed.error);
 
   useEffect(() => {
     dispatch(fetchUserOrders());
