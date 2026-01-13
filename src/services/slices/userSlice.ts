@@ -138,10 +138,7 @@ const userSlice = createSlice({
     selectIsAuthenticated: (state) => Boolean(state.user),
 
     // Ошибка
-    selectUserError: (state) => state.error,
-
-    // Статус загрузки
-    selectIsUserLoading: (state) => state.isLoading
+    selectUserError: (state) => state.error
   },
   extraReducers: (builder) => {
     builder
@@ -225,6 +222,5 @@ export const {
   selectUser,
   selectIsAuthChecked,
   selectIsAuthenticated,
-  selectUserError,
-  selectIsUserLoading
+  selectUserError
 } = userSlice.selectors;

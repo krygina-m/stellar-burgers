@@ -3,10 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { useDispatch, useSelector } from '../../services/store';
 import { registerUser } from '../../services/slices/userSlice';
-import {
-  selectUserError,
-  selectIsUserLoading
-} from '../../services/slices/userSlice';
+import { selectUserError } from '../../services/slices/userSlice';
 import { RegisterUI } from '@ui-pages';
 
 export const Register: FC = () => {
@@ -16,7 +13,6 @@ export const Register: FC = () => {
 
   const dispatch = useDispatch();
   const error = useSelector(selectUserError);
-  const isLoading = useSelector(selectIsUserLoading);
 
   const navigate = useNavigate();
 
