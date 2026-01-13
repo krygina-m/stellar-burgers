@@ -9,10 +9,6 @@ import { Preloader } from '@ui';
 
 type TProtectedRouteProps = {
   element: JSX.Element;
-  /**
-   * Роут только для неавторизованных пользователей
-   * (например, /login, /register, /forgot-password, /reset-password)
-   */
   onlyUnAuth?: boolean;
 };
 
@@ -33,7 +29,7 @@ export const ProtectedRouteElement: FC<TProtectedRouteProps> = ({
   }
 
   if (!onlyUnAuth && !isAuth) {
-    return <Navigate to='/login' replace state={{ from: location }} />;
+    return <Navigate to='/login' state={{ from: location }} replace />;
   }
 
   if (onlyUnAuth && isAuth) {
