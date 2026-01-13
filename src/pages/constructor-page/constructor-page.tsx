@@ -1,7 +1,6 @@
 import { FC, useEffect } from 'react';
 
 import { useDispatch, useSelector } from '../../services/store';
-import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 
 import styles from './constructor-page.module.css';
 
@@ -14,10 +13,6 @@ export const ConstructorPage: FC = () => {
   const isIngredientsLoading = useSelector(
     (state) => state.ingredients.isLoading
   );
-
-  useEffect(() => {
-    dispatch(fetchIngredients());
-  }, [dispatch]);
 
   return (
     <>

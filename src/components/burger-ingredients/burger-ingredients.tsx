@@ -6,14 +6,14 @@ import { useSelector, useDispatch } from '../../services/store';
 import { fetchIngredients } from '../../services/slices/ingredientsSlice';
 
 export const BurgerIngredients: FC = () => {
-  const dispatch = useDispatch();
+  /*const dispatch = useDispatch();*/
   const { items, isLoading, error } = useSelector((state) => state.ingredients);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!isLoading && !error && items.length === 0) {
       dispatch(fetchIngredients());
     }
-  }, [dispatch, items.length, isLoading, error]);
+  }, [dispatch, items.length, isLoading, error]);*/
 
   const buns = useMemo(
     () => items.filter((item) => item.type === 'bun'),

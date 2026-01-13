@@ -11,22 +11,22 @@ export const IngredientDetails: FC = () => {
 
   const { items, isLoading, error } = useSelector((state) => state.ingredients);
 
-  useEffect(() => {
+  /*useEffect(() => {
     if (!items.length && !isLoading) {
       dispatch(fetchIngredients());
     }
-  }, [dispatch, items.length, isLoading]);
+  }, [dispatch, items.length, isLoading]);*/
 
   const ingredientData = useMemo(
     () => items.find((ing) => ing._id === id),
     [items, id]
   );
 
-  useEffect(() => {
+  /* useEffect(() => {
     if (!isLoading && !error && items.length === 0) {
       dispatch(fetchIngredients());
     }
-  }, [dispatch, items.length, isLoading, error, id]);
+  }, [dispatch, items.length, isLoading, error, id]);*/
 
   if (isLoading || !ingredientData) {
     return <Preloader />;
