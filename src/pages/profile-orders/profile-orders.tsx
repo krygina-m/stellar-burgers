@@ -7,9 +7,9 @@ import { fetchUserOrders } from '../../services/slices/userOrdersSlice';
 
 export const ProfileOrders: FC = () => {
   const dispatch = useDispatch();
-  const orders = useSelector((state) => state.feed.orders);
-  const isLoading = useSelector((state) => state.feed.isLoading);
-  const error = useSelector((state) => state.feed.error);
+  const orders = useSelector((state) => state.userOrders.orders);
+  const isLoading = useSelector((state) => state.userOrders.isLoading);
+  const error = useSelector((state) => state.userOrders.error);
 
   useEffect(() => {
     dispatch(fetchUserOrders());
