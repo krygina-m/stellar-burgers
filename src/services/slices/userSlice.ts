@@ -31,13 +31,17 @@ export const registerUser = createAsyncThunk<
   { rejectValue: string }
 >('user/register', async (registerData, { rejectWithValue }) => {
   try {
-    const registerResponse = await registerUserApi(registerData);
-    if (!registerResponse.success) {
+    const { success, user, refreshToken, accessToken } =
+      await registerUserApi(registerData);
+
+    if (!success) {
       return rejectWithValue('Не удалось зарегистрировать пользователя');
     }
-    localStorage.setItem('refreshToken', registerResponse.refreshToken);
-    setCookie('accessToken', registerResponse.accessToken);
-    return registerResponse.user;
+
+    localStorage.setItem('refreshToken', refreshToken);
+    setCookie('accessToken', accessToken);
+
+    return user;
   } catch (error) {
     const errorMessage =
       (error as { message?: string }).message || 'Ошибка регистрации';
@@ -51,13 +55,17 @@ export const loginUser = createAsyncThunk<
   { rejectValue: string }
 >('user/login', async (loginData, { rejectWithValue }) => {
   try {
-    const loginResponse = await loginUserApi(loginData);
-    if (!loginResponse.success) {
+    const { success, user, refreshToken, accessToken } =
+      await loginUserApi(loginData);
+
+    if (!success) {
       return rejectWithValue('Не удалось авторизоваться');
     }
-    localStorage.setItem('refreshToken', loginResponse.refreshToken);
-    setCookie('accessToken', loginResponse.accessToken);
-    return loginResponse.user;
+
+    localStorage.setItem('refreshToken', refreshToken);
+    setCookie('accessToken', accessToken);
+
+    return user;
   } catch (error) {
     const errorMessage =
       (error as { message?: string }).message || 'Ошибка авторизации';
@@ -69,11 +77,13 @@ export const getUser = createAsyncThunk<TUser, void, { rejectValue: string }>(
   'user/get',
   async (_, { rejectWithValue }) => {
     try {
-      const userResponse = await getUserApi();
-      if (!userResponse.success) {
+      const { success, user } = await getUserApi();
+
+      if (!success) {
         return rejectWithValue('Не удалось получить данные пользователя');
       }
-      return userResponse.user;
+
+      return user;
     } catch (error) {
       const errorMessage =
         (error as { message?: string }).message ||
@@ -89,11 +99,13 @@ export const updateUser = createAsyncThunk<
   { rejectValue: string }
 >('user/update', async (userData, { rejectWithValue }) => {
   try {
-    const userResponse = await updateUserApi(userData);
-    if (!userResponse.success) {
+    const { success, user } = await updateUserApi(userData);
+
+    if (!success) {
       return rejectWithValue('Не удалось обновить данные пользователя');
     }
-    return userResponse.user;
+
+    return user;
   } catch (error) {
     const errorMessage =
       (error as { message?: string }).message ||
@@ -106,10 +118,12 @@ export const logout = createAsyncThunk<void, void, { rejectValue: string }>(
   'user/logout',
   async (_, { rejectWithValue }) => {
     try {
-      const logoutResponse = await logoutApi();
-      if (!logoutResponse.success) {
+      const { success } = await logoutApi();
+
+      if (!success) {
         return rejectWithValue('Не удалось выйти из аккаунта');
       }
+
       deleteCookie('accessToken');
       localStorage.removeItem('refreshToken');
     } catch (error) {
