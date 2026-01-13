@@ -23,24 +23,19 @@ export const createOrder = createAsyncThunk<
 >('order/create', async (_, { getState, rejectWithValue }) => {
   const state = getState();
   const { bun, ingredients } = state.burgerConstructor;
-
   if (!bun) {
     return rejectWithValue('Булка не выбрана');
   }
-
   try {
     const ingredientIds = [
       bun._id,
       ...ingredients.map((ingredient) => ingredient._id),
       bun._id
     ];
-
     const orderResponse = await orderBurgerApi(ingredientIds);
-
     if (!orderResponse.success) {
       return rejectWithValue('Не удалось оформить заказ');
     }
-
     return orderResponse.order;
   } catch (error) {
     const errorMessage =

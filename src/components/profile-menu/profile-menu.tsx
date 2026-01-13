@@ -10,15 +10,6 @@ export const ProfileMenu: FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  /*const handleLogout = async () => {
-    try {
-      await dispatch(logout()).unwrap();
-      navigate('/login', { replace: true });
-    } catch (_) {
-      // Ошибку можем показать через глобальный тост, если добавим
-    }
-  };*/
-
   const handleLogout = () => {
     <Navigate replace to={'/login'} />;
     dispatch(logout()).unwrap();

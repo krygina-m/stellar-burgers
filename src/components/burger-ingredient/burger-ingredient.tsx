@@ -14,7 +14,6 @@ export const BurgerIngredient: FC<TBurgerIngredientProps> = memo(
     const dispatch = useDispatch();
 
     const handleAdd = () => {
-      // Генерируем id до отправки action
       const ingredientWithId = {
         ...ingredient,
         id: v4()

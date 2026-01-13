@@ -1,11 +1,5 @@
 import React, { FC, useEffect } from 'react';
-import {
-  Routes,
-  Route,
-  useLocation,
-  useNavigate,
-  Navigate
-} from 'react-router-dom';
+import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 
 import {
   ConstructorPage,
@@ -19,18 +13,14 @@ import {
   NotFound404
 } from '@pages';
 import { AppHeader, Modal, OrderInfo, IngredientDetails } from '@components';
-import { Preloader } from '@ui';
-import { useDispatch, useSelector } from '../../services/store';
-import {
-  selectIsAuthenticated,
-  selectIsAuthChecked
-} from '../../services/slices/userSlice';
+import { useDispatch } from '../../services/store';
+
 import { getUser } from '../../services/slices/userSlice';
 
 import '../../index.css';
 import styles from './app.module.css';
 
-import { ProtectedRouteElement } from '../protected-route/protected-route'; // Импорт из нового файла
+import { ProtectedRouteElement } from '../protected-route/protected-route';
 
 const App: FC = () => {
   const dispatch = useDispatch();
@@ -41,10 +31,8 @@ const App: FC = () => {
     dispatch(getUser());
   }, [dispatch]);
 
-  // Глобальная инициализация ингредиентов, чтобы модалки сработали на любой странице
+  // Глобальная инициализация ингредиентов для Modal
   useEffect(() => {
-    // Ленивая подгрузка: импортируем здесь, чтобы избежать циклических зависимостей
-    // и не тянуть thunk в бандл дважды
     import('../../services/slices/ingredientsSlice').then(
       ({ fetchIngredients }) => {
         dispatch(fetchIngredients());
