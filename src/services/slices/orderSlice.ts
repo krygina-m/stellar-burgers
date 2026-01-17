@@ -1,17 +1,19 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { orderBurgerApi } from '@api';
+import { orderBurgerApi, getOrderByNumberApi } from '@api';
 import { TOrder } from '@utils-types';
 import { RootState } from '../store';
 
 export type TOrderState = {
   order: TOrder | null;
+  orderNumber: number | null;
   orderRequest: boolean;
   error: string | null;
 };
 
 const initialState: TOrderState = {
   orderRequest: false,
+  orderNumber: null,
   order: null,
   error: null
 };
@@ -44,12 +46,30 @@ export const createOrder = createAsyncThunk<
   }
 });
 
+export const getOrderByNumber = createAsyncThunk<
+  TOrder,
+  number,
+  { state: RootState; rejectValue: string }
+>('order/getOrderByNumber', async (orderNumber, { rejectWithValue }) => {
+  try {
+    const data = await getOrderByNumberApi(orderNumber);
+    if (!data.success) {
+      return rejectWithValue('Ошибка загрузки');
+    }
+    return data.orders[0];
+  } catch (error) {
+    const errorMessage = (error as { message?: string }).message || 'Ошибка';
+    return rejectWithValue(errorMessage);
+  }
+});
+
 const orderSlice = createSlice({
   name: 'order',
   initialState,
   reducers: {
     clearOrder: (state) => {
       state.order = null;
+      state.orderNumber = null;
       state.error = null;
     }
   },
@@ -59,13 +79,28 @@ const orderSlice = createSlice({
         state.orderRequest = true;
         state.error = null;
       })
+
       .addCase(createOrder.fulfilled, (state, action) => {
         state.orderRequest = false;
         state.order = action.payload;
+        state.orderNumber = action.payload.number;
       })
+
       .addCase(createOrder.rejected, (state, action) => {
         state.orderRequest = false;
         state.error = action.payload || 'Не удалось оформить заказ';
+      })
+
+      .addCase(getOrderByNumber.pending, (state) => {
+        state.error = null;
+      })
+
+      .addCase(getOrderByNumber.rejected, (state, action) => {
+        state.error = action.payload || 'Ошибка загрузки';
+      })
+
+      .addCase(getOrderByNumber.fulfilled, (state, action) => {
+        state.order = action.payload;
       });
   }
 });
