@@ -1,0 +1,17 @@
+{
+  "success": true,
+  "name": "Био-марсианский spicy краторный бургер",
+  "order": {
+    "number": 55555,
+    "ingredients": [
+      "60d3b41abdacab0026a733c6",
+      "60d3b41abdacab0026a733c8",
+      "60d3b41abdacab0026a733cc"
+    ],
+    "_id": "order",
+    "status": "done",
+    "name": "Био-марсианский spicy краторный бургер",
+    "createdAt": "2026-01-25T00:00:00.000Z",
+    "updatedAt": "2026-01-25T00:00:00.000Z"
+  }
+}

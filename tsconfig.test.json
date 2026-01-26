@@ -1,0 +1,21 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "types": ["jest", "node"],
+    "isolatedModules": false,
+    "noEmit": true
+  },
+  "include": [
+    "src/**/*",
+    "__mocks__/**/*",
+    "jest.setup.ts"
+  ],
+  "exclude": [
+    "node_modules",
+    "dist",
+    "cypress",
+    "**/*.cy.ts",
+    "**/*.cy.tsx"
+  ]
+}
