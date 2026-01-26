@@ -140,7 +140,7 @@ describe('Тест слайса constructorSlice', () => {
       const state = {
         ...initialState,
         bun: mockBun,
-        ingredients: [mockMain1, mockMain2]
+        ingredients: [mockMain1]
       };
 
       const result = constructorReducer(state, clearConstructor());
