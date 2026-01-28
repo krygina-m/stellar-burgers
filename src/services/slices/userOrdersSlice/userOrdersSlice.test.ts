@@ -137,7 +137,7 @@ describe('Тест слайса userOrdersSlice', () => {
 
       const result = await fetchUserOrders()(dispatch, getState, undefined);
       expect(result.type).toBe(fetchUserOrders.rejected.type);
-      expect((result as any).payload).toBe(errorMessage);
+      expect(result.payload).toBe(errorMessage);
     });
   });
 });

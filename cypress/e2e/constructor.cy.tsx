@@ -4,6 +4,7 @@ const SELECTORS = {
   MODAL: '[data-cy="modal"]',
   MODAL_CLOSE: '[data-cy="modal-close"]',
   MODAL_OVERLAY: '[data-cy="modal-overlay"]',
+  MODAL_CONTENT: '[data-cy="modal-content"]',
   INGREDIENT_DETAILS: '[data-cy="ingredient-details"]',
   ORDER_NUMBER: '[data-cy="order-number"]',
   BURGER_CONSTRUCTOR: '[data-cy="burger-constructor"]',
@@ -78,6 +79,11 @@ describe('End-to-end test', () => {
   it('Открывает и закрывает модальное окно ингредиента (крестик)', () => {
     cy.contains(INGREDIENTS.KRATORNAYA_BUN).click();
     cy.get(SELECTORS.MODAL).should('be.visible');
+
+    cy.get(SELECTORS.MODAL_CONTENT)
+      .should('contain.text', INGREDIENTS.KRATORNAYA_BUN)
+      .and('be.visible');
+
     cy.get(SELECTORS.MODAL_CLOSE).click();
     cy.get(SELECTORS.MODAL).should('not.exist');
   });
@@ -85,7 +91,24 @@ describe('End-to-end test', () => {
   it('Открывает и закрывает модальное окно ингредиента (оверлей)', () => {
     cy.contains(INGREDIENTS.KRATORNAYA_BUN).click();
     cy.get(SELECTORS.MODAL).should('be.visible');
+
+    cy.get(SELECTORS.MODAL_CONTENT)
+      .should('contain.text', INGREDIENTS.KRATORNAYA_BUN)
+      .and('be.visible');
+
     cy.get(SELECTORS.MODAL_OVERLAY).click({ force: true });
+    cy.get(SELECTORS.MODAL).should('not.exist');
+  });
+
+  it('Открывает и закрывает модальное окно ингредиента (Esc)', () => {
+    cy.contains(INGREDIENTS.KRATORNAYA_BUN).click();
+    cy.get(SELECTORS.MODAL).should('be.visible');
+
+    cy.get(SELECTORS.MODAL_CONTENT)
+      .should('contain.text', INGREDIENTS.KRATORNAYA_BUN)
+      .and('be.visible');
+
+    cy.get('body').type('{esc}');
     cy.get(SELECTORS.MODAL).should('not.exist');
   });
 

@@ -96,7 +96,7 @@ describe('Тест слайса feedSlice', () => {
       const result = await fetchFeed()(dispatch, getState, undefined);
 
       expect(result.type).toBe(fetchFeed.rejected.type);
-      expect((result as any).payload).toBe(errorMessage);
+      expect(result.payload).toBe(errorMessage);
     });
   });
 });

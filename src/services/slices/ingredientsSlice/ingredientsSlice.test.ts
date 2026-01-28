@@ -88,6 +88,6 @@ describe('Асинхронное действие fetchIngredients', () => {
     const result = await fetchIngredients()(dispatch, getState, undefined);
 
     expect(result.type).toBe(fetchIngredients.rejected.type);
-    expect((result as any).payload).toBe(errorMessage);
+    expect(result.payload).toBe(errorMessage);
   });
 });

@@ -198,7 +198,7 @@ describe('Тест слайса orderSlice', () => {
 
         const result = await createOrder()(dispatch, getState, undefined);
         expect(result.type).toBe(createOrder.rejected.type);
-        expect((result as any).payload).toBe('Булка не выбрана');
+        expect(result.payload).toBe('Булка не выбрана');
       });
 
       it('обрабатывает ошибку API при создании заказа', async () => {
@@ -215,7 +215,7 @@ describe('Тест слайса orderSlice', () => {
 
         const result = await createOrder()(dispatch, getState, undefined);
         expect(result.type).toBe(createOrder.rejected.type);
-        expect((result as any).payload).toBe('Ошибка оформления заказа');
+        expect(result.payload).toBe('Ошибка оформления заказа');
       });
     });
 
@@ -253,7 +253,7 @@ describe('Тест слайса orderSlice', () => {
         );
 
         expect(result.type).toBe(getOrderByNumber.rejected.type);
-        expect((result as any).payload).toBe('Ошибка загрузки');
+        expect(result.payload).toBe('Ошибка загрузки');
         expect(getOrderByNumberApi).toHaveBeenCalledWith(orderNumber);
       });
 
@@ -272,7 +272,7 @@ describe('Тест слайса orderSlice', () => {
         );
 
         expect(result.type).toBe(getOrderByNumber.rejected.type);
-        expect((result as any).payload).toBe(errorMessage);
+        expect(result.payload).toBe(errorMessage);
         expect(getOrderByNumberApi).toHaveBeenCalledWith(orderNumber);
       });
 
